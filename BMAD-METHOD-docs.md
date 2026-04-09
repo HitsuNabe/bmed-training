@@ -1,42 +1,42 @@
-# BMAD Method — Документація
+# BMAD Method — Documentation
 
-> **BMAD** (Breakthrough Method for Agile AI-Driven Development) — це open-source фреймворк для структурованої AI-розробки. Замість того, щоб AI «думав за вас», BMAD позиціонує його як дисциплінованого учасника agile-процесу: кожен агент має чітку роль, фазу та артефакти, які він продукує.
+> **BMAD** (Breakthrough Method for Agile AI-Driven Development) is an open-source framework for structured AI-driven development. Rather than having AI "think for you", BMAD positions it as a disciplined participant in the agile process: each agent has a clear role, phase, and artifacts it produces.
 
 - **GitHub:** https://github.com/bmad-code-org/BMAD-METHOD
-- **Документація:** https://docs.bmad-method.org
-- **Ліцензія:** MIT (безкоштовно, без пейволів)
+- **Documentation:** https://docs.bmad-method.org
+- **License:** MIT (free, no paywall)
 
 ---
 
-## Зміст
+## Table of Contents
 
-1. [Встановлення (на прикладі Claude)](#встановлення-на-прикладі-claude)
-2. [Модулі](#модулі)
-3. [Агенти та режими](#агенти-та-режими)
-4. [Фази workflow](#фази-workflow)
+1. [Installation (Claude example)](#installation-claude-example)
+2. [Modules](#modules)
+3. [Agents and Modes](#agents-and-modes)
+4. [Workflow Phases](#workflow-phases)
 5. [Party Mode](#party-mode)
-6. [Корисні команди](#корисні-команди)
+6. [Useful Commands](#useful-commands)
 
 ---
 
-## Встановлення (на прикладі Claude)
+## Installation (Claude example)
 
-### Передумови
+### Prerequisites
 
-- **Node.js v20+** — єдина обов'язкова залежність
-- Активна підписка на **Claude** (Claude.ai або Claude Code)
+- **Node.js v20+** — the only required dependency
+- An active **Claude** subscription (Claude.ai or Claude Code)
 
-Перевірити версію Node.js:
+Check your Node.js version:
 
 ```bash
 node --version
 ```
 
-Якщо Node.js не встановлено — завантажити з [nodejs.org](https://nodejs.org).
+If Node.js is not installed — download it from [nodejs.org](https://nodejs.org).
 
 ---
 
-### Крок 1 — Створити папку проєкту
+### Step 1 — Create a Project Folder
 
 ```bash
 mkdir my-project
@@ -45,17 +45,17 @@ cd my-project
 
 ---
 
-### Крок 2 — Запустити інсталятор BMAD
+### Step 2 — Run the BMAD Installer
 
 ```bash
 npx bmad-method install
 ```
 
-Інсталятор запустить інтерактивне меню. Нижче — що обирати на кожному кроці.
+The installer will launch an interactive menu. Below is what to select at each step.
 
 ---
 
-### Крок 3 — Обрати директорію встановлення
+### Step 3 — Choose the Installation Directory
 
 ```
 ? Where would you like to install BMad files?
@@ -63,11 +63,11 @@ npx bmad-method install
   Custom path
 ```
 
-Обирайте **Current directory** — це встановить BMAD безпосередньо у ваш проєкт.
+Select **Current directory** — this installs BMAD directly into your project.
 
 ---
 
-### Крок 4 — Обрати AI-інструмент
+### Step 4 — Select the AI Tool
 
 ```
 ? Select tools to configure:
@@ -77,13 +77,13 @@ npx bmad-method install
   ...
 ```
 
-Оберіть **`claude-code`**.
+Select **`claude-code`**.
 
-> Це налаштує `.claude/` папку з усіма необхідними skills та конфігурацією для Claude Code.
+> This configures the `.claude/` folder with all necessary skills and configuration for Claude Code.
 
 ---
 
-### Крок 5 — Обрати модуль
+### Step 5 — Select a Module
 
 ```
 ? Select modules to install:
@@ -93,49 +93,51 @@ npx bmad-method install
   ...
 ```
 
-Для початку оберіть **BMad Method (bmm)** — це основний модуль з 34+ workflow.
+Start with **BMad Method (bmm)** — this is the core module with 34+ workflows.
+
+> ⚠️ **Important:** Use **Space** to select a module, then **Enter** to confirm. Pressing Enter without Space will skip the selection.
 
 ---
 
-### Крок 6 — Заповнити налаштування проєкту
+### Step 6 — Fill in Project Settings
 
-Інсталятор запитає:
+The installer will ask:
 
-| Параметр | Опис |
-|---|---|
-| `project_name` | Назва вашого проєкту |
-| `user_skill_level` | Рівень досвіду: `beginner` / `intermediate` / `expert` |
-| `planning_artifacts` | Папка для артефактів фаз 1–3 (за замовчуванням: `docs/`) |
-| `implementation_artifacts` | Папка для артефактів фази 4 (за замовчуванням: `stories/`) |
-| `project_knowledge` | Папка для довгострокової документації |
+| Parameter | Description |
+|-----------|-------------|
+| `project_name` | Your project name |
+| `user_skill_level` | Experience level: `beginner` / `intermediate` / `expert` |
+| `planning_artifacts` | Folder for phase 1–3 artifacts (default: `docs/`) |
+| `implementation_artifacts` | Folder for phase 4 artifacts (default: `stories/`) |
+| `project_knowledge` | Folder for long-term documentation |
 
 ---
 
-### Крок 7 — Відкрити проєкт у Claude Code
+### Step 7 — Open the Project in Claude Code
 
-Після завершення встановлення відкрийте папку проєкту в Claude Code:
+After installation is complete, open the project folder in Claude Code:
 
 ```bash
 claude .
 ```
 
-Або відкрийте її через GUI Claude Code (File → Open Folder).
+Or open it via the Claude Code GUI (File → Open Folder).
 
 ---
 
-### Крок 8 — Перевірити встановлення
+### Step 8 — Verify Installation
 
-У чаті Claude Code напишіть:
+In the Claude Code chat, type:
 
 ```
 bmad-help
 ```
 
-BMAD автоматично визначить встановлені модулі та направить вас до наступного кроку.
+BMAD will automatically detect the installed modules and guide you to the next step.
 
 ---
 
-### Неінтерактивне встановлення (CI/CD або автоматизація)
+### Non-Interactive Installation (CI/CD or automation)
 
 ```bash
 npx bmad-method install \
@@ -147,7 +149,7 @@ npx bmad-method install \
 
 ---
 
-### Встановлення prerelease-версії
+### Installing a Prerelease Version
 
 ```bash
 npx bmad-method@next install
@@ -155,174 +157,208 @@ npx bmad-method@next install
 
 ---
 
-## Модулі
+## Modules
 
-| Модуль | ID | Опис |
-|---|---|---|
-| **BMad Method** | `bmm` | Основний модуль: 34+ workflow для повного циклу розробки |
-| **BMad Builder** | `bmb` | Створення кастомних агентів та workflow |
-| **Test Architect** | `tea` | Risk-based стратегії тестування |
-| **Game Dev Studio** | `bmgd` | Workflow для Unity / Unreal / Godot |
-| **Creative Intelligence Suite** | `cis` | Інструменти для інновацій та design thinking |
+| Module | ID | Description |
+|--------|----|----|
+| **BMad Method** | `bmm` | Core module: 34+ workflows for the full development cycle |
+| **BMad Builder** | `bmb` | Create custom agents and workflows |
+| **Test Architect** | `tea` | Risk-based testing strategies |
+| **Game Dev Studio** | `bmgd` | Workflows for Unity / Unreal / Godot |
+| **Creative Intelligence Suite** | `cis` | Tools for innovation and design thinking |
 
 ---
 
-## Агенти та режими
+## Agents and Modes
 
-BMAD організований навколо **спеціалізованих агентів** — кожен є окремою AI-персоною з чіткою роллю, фазою та типом артефактів, які він створює. Агенти не замінюють один одного: вони передають контекст по ланцюжку.
+BMAD is organized around **specialized agents** — each is a distinct AI persona with a clear role, phase, and type of artifacts it produces. Agents don't replace each other: they pass context down the chain.
 
-### Фаза 1 — Аналіз та Дослідження
+### Phase 1 — Analysis and Research
 
 #### 🔍 Analyst
-- **Ім'я агента:** `bmad-agent-analyst`
-- **Роль:** Дослідник та стратег на старті проєкту
-- **Що робить:** Збирає та структурує інформацію про проблему, цільову аудиторію, обмеження та ризики. Продукує **Project Brief** — вхідний документ для всього подальшого процесу.
-- **Коли використовувати:** На початку, коли є лише ідея або задача і потрібно оформити її в чіткий документ
-- **Артефакти:** Project Brief, PR-FAQ, Product Brief, Research Summary
+- **Agent name:** `bmad-agent-analyst`
+- **Role:** Researcher and strategist at the project start
+- **What it does:** Gathers and structures information about the problem, target audience, constraints, and risks. Produces the **Project Brief** — the input document for the entire process.
+- **When to use:** At the beginning, when you only have an idea or task and need to turn it into a clear document
+- **Artifacts:** Project Brief, PR-FAQ, Product Brief, Research Summary
 
 #### ✍️ Tech Writer
-- **Ім'я агента:** `bmad-agent-tech-writer`
-- **Роль:** Технічний письменник
-- **Що робить:** Допомагає документувати проєкт, оформлювати технічні рішення у читабельний вигляд, стандартизувати документацію
-- **Коли використовувати:** Коли потрібно створити або впорядкувати технічну документацію на будь-якому етапі
+- **Agent name:** `bmad-agent-tech-writer`
+- **Role:** Technical writer
+- **What it does:** Helps document the project, format technical decisions into readable content, and standardize documentation
+- **When to use:** When you need to create or organize technical documentation at any stage
 
 ---
 
-### Фаза 2 — Планування
+### Phase 2 — Planning
 
 #### 📋 Product Manager (John)
-- **Ім'я агента:** `bmad-agent-pm`
-- **Роль:** Досвідчений продакт-менеджер (8+ років, B2B та consumer)
-- **Що робить:** Перетворює Project Brief на детальний **PRD (Product Requirements Document)**. Використовує Jobs-to-be-Done та opportunity scoring. Постійно запитує «ЧОМУ?», щоб знайти справжні потреби користувача.
-- **Коли використовувати:** Після завершення Аналізу (Фаза 1), коли потрібно формалізувати вимоги до продукту
-- **Артефакти:** PRD з вимірюваними NFR, Epics та Stories
+- **Agent name:** `bmad-agent-pm`
+- **Role:** Experienced product manager (8+ years, B2B and consumer)
+- **What it does:** Transforms the Project Brief into a detailed **PRD (Product Requirements Document)**. Uses Jobs-to-be-Done and opportunity scoring. Constantly asks "WHY?" to find real user needs.
+- **When to use:** After Analysis (Phase 1) is complete, when you need to formalize product requirements
+- **Artifacts:** PRD with measurable NFRs, Epics and Stories
 
 #### 🎨 UX Designer (Sally)
-- **Ім'я агента:** `bmad-agent-ux-designer`
-- **Роль:** Senior UX Designer (7+ років)
-- **Що робить:** Проектує користувацький досвід, описує user flows, створює специфікації для UI/UX. Розповідає користувацькі історії так, щоб «відчути проблему».
-- **Коли використовувати:** Коли UX є ключовим диференціатором, існують складні user workflows або потрібна design system
-- **Артефакти:** UX Design Document, User Flows, Design System Spec
+- **Agent name:** `bmad-agent-ux-designer`
+- **Role:** Senior UX Designer (7+ years)
+- **What it does:** Designs the user experience, describes user flows, creates UI/UX specifications. Tells user stories in a way that makes you "feel the problem".
+- **When to use:** When UX is a key differentiator, there are complex user workflows, or a design system is needed
+- **Artifacts:** UX Design Document, User Flows, Design System Spec
 
 ---
 
-### Фаза 3 — Архітектура та Дизайн
+### Phase 3 — Architecture and Design
 
 #### 🏗️ Architect (Winston)
-- **Ім'я агента:** `bmad-agent-architect`
-- **Роль:** Системний архітектор та технічний дизайнер
-- **Що робить:** На основі PRD (і опційно UX-документа) визначає технічний стек, інфраструктуру, API-дизайн та компонентну архітектуру. Документує архітектурні рішення (ADR).
-- **Коли використовувати:** Після завершення PRD, перед початком імплементації
-- **Артефакти:** Architecture Document, ADR, Infrastructure Spec, API Contracts
+- **Agent name:** `bmad-agent-architect`
+- **Role:** System architect and technical designer
+- **What it does:** Based on the PRD (and optionally the UX document), defines the tech stack, infrastructure, API design, and component architecture. Documents architectural decisions (ADR).
+- **When to use:** After the PRD is complete, before implementation begins
+- **Artifacts:** Architecture Document, ADR, Infrastructure Spec, API Contracts
 
 ---
 
-### Фаза 4 — Імплементація
+### Phase 4 — Implementation
 
 #### 💻 Developer (Amelia)
-- **Ім'я агента:** `bmad-agent-dev`
-- **Роль:** Спеціаліст з імплементації та code review
-- **Що робить:** Реалізує stories, пише код згідно з архітектурними рішеннями, проводить code review. Працює строго в рамках визначеного контексту story.
-- **Коли використовувати:** Для написання коду, story за story
-- **Артефакти:** Code, PR, Implementation Notes
+- **Agent name:** `bmad-agent-dev`
+- **Role:** Implementation specialist and code reviewer
+- **What it does:** Implements stories, writes code according to architectural decisions, conducts code reviews. Works strictly within the defined story context.
+- **When to use:** For writing code, story by story
+- **Artifacts:** Code, PR, Implementation Notes
 
 #### 🧪 QA (Quinn)
-- **Ім'я агента:** `bmad-agent-qa`
-- **Роль:** Прагматичний інженер з автоматизації тестування
-- **Що робить:** Генерує E2E тести, покриває реалістичні сценарії користувача. Ментальність «ship it and iterate» — фокус на швидкому покритті.
-- **Коли використовувати:** Для написання тестів, QA-стратегії, E2E coverage
-- **Артефакти:** E2E Test Suite, QA Plan
+- **Agent name:** `bmad-agent-qa`
+- **Role:** Pragmatic test automation engineer
+- **What it does:** Generates E2E tests, covers realistic user scenarios. "Ship it and iterate" mindset — focused on fast coverage.
+- **When to use:** For writing tests, QA strategy, E2E coverage
+- **Artifacts:** E2E Test Suite, QA Plan
 
 #### 📌 Scrum Master (Bob)
-- **Ім'я агента:** `bmad-agent-sm`
-- **Роль:** Сертифікований Scrum Master з технічним бекграундом
-- **Що робить:** Організовує роботу команди: sprint planning, підготовка story files з контекстом та acceptance criteria, відстеження прогресу. Чіткий, checklist-орієнтований, нульова толерантність до амбігвіності.
-- **Коли використовувати:** Для планування спринтів, підготовки stories, ретроспектив
-- **Артефакти:** Story Files, Sprint Plan, Sprint Status, Retrospective Notes
+- **Agent name:** `bmad-agent-sm`
+- **Role:** Certified Scrum Master with a technical background
+- **What it does:** Organizes team work: sprint planning, preparing story files with context and acceptance criteria, tracking progress. Clear, checklist-oriented, zero tolerance for ambiguity.
+- **When to use:** For sprint planning, story preparation, retrospectives
+- **Artifacts:** Story Files, Sprint Plan, Sprint Status, Retrospective Notes
 
-#### ⚡ Quick Flow Solo Dev
-- **Ім'я агента:** `bmad-agent-quick-flow-solo-dev`
-- **Роль:** Прискорений режим для одного розробника
-- **Що робить:** Спрощений варіант без повного agile-процесу. Дозволяє швидко перейти від ідеї до коду без проходження всіх фаз.
-- **Коли використовувати:** Невеликі проєкти, MVP, solo dev без потреби у повній документації
+#### ⚡ Quick Flow Solo Dev (Barry)
+- **Agent name:** `bmad-agent-quick-flow-solo-dev`
+- **Role:** Accelerated mode for a solo developer
+- **What it does:** A simplified variant without the full agile process. Allows quickly moving from idea to code without going through all phases.
+- **When to use:** Small projects, MVPs, solo dev without the need for full documentation
 
 ---
 
-## Фази Workflow
+### Phase 4 — Implementation Skills (detailed)
+
+There are 4 closely related commands in Phase 4 that are easy to confuse:
+
+| Command | Type | Input | Use when |
+|---------|------|-------|----------|
+| `bmad-agent-dev` | **Agent (Amelia)** | Story file already exists | Standard/Enterprise flow — opens a session with Amelia, she presents a menu |
+| `bmad-dev-story` | **Workflow** | Story file path | Direct story execution without the agent persona — same as Amelia's `DS` menu item |
+| `bmad-agent-quick-flow-solo-dev` | **Agent (Barry)** | Raw intent ("add email filter") | Quick Flow — opens a session with Barry, he handles spec + implementation himself |
+| `bmad-quick-dev` | **Workflow** | Raw intent | Direct quick dev without the agent persona — same as Barry's `QD` menu item |
+
+**Relationship between agents and workflows:**
 
 ```
-Ідея
+bmad-agent-dev (Amelia)
+    └── menu item DS → bmad-dev-story  ← requires a prepared story file
+
+bmad-agent-quick-flow-solo-dev (Barry)
+    └── menu item QD → bmad-quick-dev  ← works from raw intent alone
+```
+
+**Practical rule:**
+- Already have a story file → use `bmad-agent-dev` or `bmad-dev-story` directly
+- No story file, want a quick result → use `bmad-agent-quick-flow-solo-dev` or `bmad-quick-dev` directly
+- The agent variants (Amelia/Barry) greet you, load project context, and offer a menu — useful for interactive sessions
+- The workflow variants (`bmad-dev-story` / `bmad-quick-dev`) go straight to execution — useful when you know exactly what you want
+
+---
+
+## Workflow Phases
+
+```
+Idea
  │
  ▼
-[Фаза 1] АНАЛІЗ ──────────── Analyst, Tech Writer
+[Phase 1] ANALYSIS ──────────── Analyst, Tech Writer
  │         Project Brief, PR-FAQ, Research
  │
  ▼
-[Фаза 2] ПЛАНУВАННЯ ──────── PM (John), UX Designer (Sally)
+[Phase 2] PLANNING ──────────── PM (John), UX Designer (Sally)
  │         PRD, UX Design, Epics
  │
  ▼
-[Фаза 3] АРХІТЕКТУРА ─────── Architect (Winston)
+[Phase 3] ARCHITECTURE ──────── Architect (Winston)
  │         Architecture Doc, ADR, API Contracts
  │
  ▼
-[Фаза 4] ІМПЛЕМЕНТАЦІЯ ───── Dev (Amelia), QA (Quinn), SM (Bob)
+[Phase 4] IMPLEMENTATION ────── Dev (Amelia), QA (Quinn), SM (Bob)
            Stories → Code → Tests → Sprint Review
 ```
 
-Кожна фаза продукує **артефакти**, які стають контекстом для наступної:
-- PRD пояснює архітектору, які обмеження важливі
-- Architecture Doc пояснює девелоперу, які патерни використовувати
-- Story Files дають девелоперу чіткий, повний контекст для імплементації
+Each phase produces **artifacts** that become context for the next:
+- The PRD tells the architect which constraints matter
+- The Architecture Doc tells the developer which patterns to use
+- Story Files give the developer a clear, complete context for implementation
 
 ---
 
 ## Party Mode
 
-**Party Mode** — режим, який дозволяє залучити **кількох агентів в одну сесію** для спільного обговорення.
+**Party Mode** is a mode that allows **multiple agents in a single session** for collaborative discussion.
 
-### Приклади використання
+### Usage Examples
 
-- **Architect + PM** обговорюють технічні компроміси та вимоги одночасно
-- **Developer + QA** узгоджують стратегію тестування перед імплементацією
-- **PM + UX Designer** валідують вимоги та дизайн-рішення разом
+- **Architect + PM** discuss technical trade-offs and requirements simultaneously
+- **Developer + QA** align on a testing strategy before implementation
+- **PM + UX Designer** validate requirements and design decisions together
 
-### Як активувати
+### How to Activate
 
-У чаті Claude Code явно зверніться до кількох агентів:
+In the Claude Code chat, explicitly address multiple agents:
 
 ```
-@bmad-agent-pm @bmad-agent-architect
-Нам потрібно обговорити архітектуру мікросервісів.
-PM — опиши вимоги до масштабованості.
-Architect — запропонуй рішення.
+/bmad-party-mode
+
+We need to discuss microservices architecture.
+PM — describe the scalability requirements.
+Architect — propose a solution.
 ```
 
 ---
 
-## Корисні команди
+## Useful Commands
 
-| Команда | Опис |
-|---|---|
-| `bmad-help` | Отримати контекстну підказку — що робити далі |
-| `bmad-help I just finished the architecture, what's next?` | Запитати конкретну пораду |
-| `@bmad-agent-pm` | Активувати агента PM (John) |
-| `@bmad-agent-architect` | Активувати агента Architect (Winston) |
-| `@bmad-agent-dev` | Активувати агента Developer (Amelia) |
-| `@bmad-agent-sm` | Активувати агента Scrum Master (Bob) |
-| `@bmad-agent-qa` | Активувати агента QA (Quinn) |
-| `@bmad-agent-analyst` | Активувати агента Analyst |
+| Command | Description |
+|---------|-------------|
+| `bmad-help` | Get contextual guidance — what to do next |
+| `bmad-help I just finished the architecture, what's next?` | Ask for specific advice |
+| `/bmad-agent-pm` | Activate PM agent (John) |
+| `/bmad-agent-architect` | Activate Architect agent (Winston) |
+| `/bmad-agent-dev` | Activate Developer agent (Amelia) — interactive session, story-by-story |
+| `/bmad-dev-story` | Execute a specific story file directly (no agent persona) |
+| `/bmad-agent-quick-flow-solo-dev` | Activate Quick Flow agent (Barry) — interactive session, raw intent → code |
+| `/bmad-quick-dev` | Quick implementation directly (no agent persona) |
+| `/bmad-agent-sm` | Activate Scrum Master agent (Bob) |
+| `/bmad-agent-qa` | Activate QA agent (Quinn) |
+| `/bmad-agent-analyst` | Activate Analyst agent |
+| `/bmad-party-mode` | Activate multi-agent discussion mode |
 
 ---
 
 ## Scale-Adaptive Intelligence
 
-BMAD автоматично калібрує **глибину планування** залежно від складності проєкту:
+BMAD automatically calibrates the **depth of planning** based on project complexity:
 
-- **Маленький проєкт / bug fix** → мінімальний процес, Quick Flow
-- **Середній проєкт** → повний цикл із спрощеними артефактами
-- **Enterprise система** → повний цикл з детальною документацією на кожній фазі
+- **Small project / bug fix** → minimal process, Quick Flow
+- **Medium project** → full cycle with simplified artifacts
+- **Enterprise system** → full cycle with detailed documentation at each phase
 
 ---
 
-*Документація базується на BMAD METHOD v2025. Актуальна інформація: [docs.bmad-method.org](https://docs.bmad-method.org)*
+*Documentation based on BMAD METHOD v6.2.3. Latest information: [docs.bmad-method.org](https://docs.bmad-method.org)*

@@ -1,40 +1,40 @@
 # BMAD Workflow Guide
-## Від встановлення до реалізації задачі (BMAD-2)
+## From Installation to Implementing a Task (BMAD-2)
 
-> Цей гайд демонструє повний цикл роботи з BMAD на прикладі реального проєкту.
-> **Проєкт:** `fastapi/full-stack-fastapi-template`
-> **Задача:** BMAD-2 — Пошук та фільтрація Items (3 SP)
+> This guide demonstrates the full BMAD workflow using a real project.
+> **Project:** `fastapi/full-stack-fastapi-template`
+> **Task:** BMAD-2 — Search and Filtering for Items (3 SP)
 
 ---
 
-## Частина 1 — Підготовка середовища
+## Part 1 — Environment Setup
 
-### Крок 1.1 — Запустити проєкт
+### Step 1.1 — Start the Project
 
 ```bash
 cd full-stack-fastapi-template
 docker compose up -d --build
 ```
 
-Перевір що все працює:
+Verify everything is running:
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:8000/docs
 
-### Крок 1.2 — Встановити BMAD
+### Step 1.2 — Install BMAD
 
 ```bash
 npx bmad-method install
 ```
 
-> ⚠️ **Важливо:** На кроці вибору інструментів та модулів натискай **пробіл** для вибору, а потім **Enter**.
+> ⚠️ **Important:** When selecting tools and modules, press **Space** to select, then **Enter** to confirm.
 
-Обери:
+Select:
 - Tool: **claude-code**
 - Modules: **BMad Method (bmm)**
 
-Після встановлення в корені проєкту з'явиться папка `_bmad/`.
+After installation, a `_bmad/` folder will appear at the project root.
 
-### Крок 1.3 — Відкрити проєкт у Claude Code
+### Step 1.3 — Open the Project in Claude Code
 
 ```bash
 claude .
@@ -42,36 +42,36 @@ claude .
 
 ---
 
-## Частина 2 — Ініціалізація проєкту в BMAD
+## Part 2 — Initializing the Project in BMAD
 
-### Крок 2.1 — Згенерувати Project Context
+### Step 2.1 — Generate Project Context
 
-Перша і найважливіша команда для **існуючого** проєкту:
+The first and most important command for an **existing** project:
 
 ```
 /bmad-generate-project-context
 ```
 
-**Що відбувається:**
-BMAD сканує кодову базу і генерує `_bmad-output/project-context.md` — компактний файл з правилами проєкту для всіх агентів. Наприклад, він знаходить що:
-- Проєкт використовує **psycopg3**, не psycopg2
-- Немає `tailwind.config.js` (Tailwind v4)
-- Клієнтський код у `src/client/` **генерується автоматично** — не редагувати вручну
-- Mypy у strict режимі — весь код має проходити type-check
+**What happens:**
+BMAD scans the codebase and generates `_bmad-output/project-context.md` — a compact file containing project rules for all agents. For example, it discovers that:
+- The project uses **psycopg3**, not psycopg2
+- There is no `tailwind.config.js` (Tailwind v4)
+- Client code in `src/client/` is **auto-generated** — never edit manually
+- Mypy is in strict mode — all code must pass type-checking
 
-> 💡 Цей файл завантажується кожним агентом при активації. Без нього агенти не знають специфіки проєкту і будуть робити типові помилки.
+> 💡 This file is loaded by every agent on activation. Without it, agents don't know the project specifics and will make typical mistakes.
 
-**Результат:** `_bmad-output/project-context.md`
+**Output:** `_bmad-output/project-context.md`
 
 ---
 
-### Крок 2.2 — Запустити Sprint Planning
+### Step 2.2 — Run Sprint Planning
 
 ```
 /bmad-sprint-planning
 ```
 
-Передай BMAD список задач з бекологу. Можна скопіювати з `TASKS_JIRA.md` або просто написати:
+Pass BMAD the list of tasks from the backlog. You can copy from `TASKS_JIRA.md` or simply write:
 
 ```
 Here is our backlog:
@@ -82,22 +82,22 @@ Here is our backlog:
 Let's plan sprint 1 with BMAD-2 only.
 ```
 
-**Що відбувається:**
-BMAD створює файл спринту в `_bmad-output/implementation-artifacts/sprint-plan.md` зі статусами кожної story.
+**What happens:**
+BMAD creates a sprint file at `_bmad-output/implementation-artifacts/sprint-plan.md` with the status of each story.
 
-**Результат:** `_bmad-output/implementation-artifacts/sprint-plan.md`
+**Output:** `_bmad-output/implementation-artifacts/sprint-plan.md`
 
 ---
 
-## Частина 3 — Реалізація задачі BMAD-2
+## Part 3 — Implementing Task BMAD-2
 
-### Крок 3.1 — Створити Story файл
+### Step 3.1 — Create the Story File
 
 ```
 /bmad-create-story BMAD-2
 ```
 
-Або більш детально:
+Or in more detail:
 ```
 Create story for BMAD-2: Search and filtering for Items.
 
@@ -112,43 +112,43 @@ Frontend:
 - Show "Found N items" counter
 ```
 
-**Що відбувається:**
-BMAD підготовує детальний файл story з усім контекстом, який потрібен агенту-розробнику: опис задачі, acceptance criteria, файли які треба змінити, технічні нотатки з project-context.md.
+**What happens:**
+BMAD prepares a detailed story file with all the context the developer agent needs: task description, acceptance criteria, files to change, and technical notes from project-context.md.
 
-**Результат:** `_bmad-output/implementation-artifacts/BMAD-2-search-filter.md`
+**Output:** `_bmad-output/implementation-artifacts/BMAD-2-search-filter.md`
 
 ---
 
-### Крок 3.2 — Передати задачу агенту Dev (Amelia)
+### Step 3.2 — Hand the Task to the Dev Agent (Amelia)
 
-Варіант A — через агента:
+Option A — via the agent:
 ```
 /bmad-agent-dev
 ```
 
-Після активації Amelia скаже: *"Hi Vadym! I'm Amelia, your senior software engineer. Ready to execute stories."*
+After activation, Amelia will say: *"Hi Vadym! I'm Amelia, your senior software engineer. Ready to execute stories."*
 
-Потім:
+Then:
 ```
 DS
 ```
-(Dev Story — shortcode з меню можливостей агента)
+(Dev Story — shortcode from the agent's capability menu)
 
-Або одразу:
+Or directly:
 ```
 dev this story _bmad-output/implementation-artifacts/BMAD-2-search-filter.md
 ```
 
-Варіант B — напряму:
+Option B — directly:
 ```
 /bmad-dev-story _bmad-output/implementation-artifacts/BMAD-2-search-filter.md
 ```
 
-**Що Amelia робить (автономно, без зупинок):**
+**What Amelia does (autonomously, without stopping):**
 
 **Backend:**
-1. Читає весь story файл до початку
-2. Модифікує `backend/app/api/routes/items.py`:
+1. Reads the entire story file before starting
+2. Modifies `backend/app/api/routes/items.py`:
    ```python
    @router.get("/", response_model=ItemsPublic)
    def read_items(
@@ -156,145 +156,145 @@ dev this story _bmad-output/implementation-artifacts/BMAD-2-search-filter.md
        current_user: CurrentUser,
        skip: int = 0,
        limit: int = 100,
-       search: str | None = None,        # ← нове
-       sort_by: str | None = None,       # ← нове
+       search: str | None = None,        # ← new
+       sort_by: str | None = None,       # ← new
    ) -> Any:
    ```
-3. Додає ILIKE фільтрацію та сортування до SQL-запиту
-4. Оновлює count-запит
-5. Запускає тести: `pytest backend/app/tests/api/routes/test_items.py`
-6. Дописує нові тести для search/sort параметрів
-7. Позначає backend subtasks як `[x]`
+3. Adds ILIKE filtering and sorting to the SQL query
+4. Updates the count query
+5. Runs tests: `pytest backend/app/tests/api/routes/test_items.py`
+6. Writes new tests for search/sort parameters
+7. Marks backend subtasks as `[x]`
 
 **Frontend:**
-1. Модифікує `frontend/src/routes/_layout/items.tsx`:
-   - Додає `useState` для search і sortBy
-   - Реалізує debounce через `useDeferredValue`
-   - Передає параметри в `ItemsService.readItems()`
-2. Додає Search input з іконкою (Lucide `Search`)
-3. Додає `Select` компонент для сортування
-4. Додає рядок "Found N items"
-5. Регенерує клієнт: `npm run generate-client`
-6. Позначає frontend subtasks як `[x]`
+1. Modifies `frontend/src/routes/_layout/items.tsx`:
+   - Adds `useState` for search and sortBy
+   - Implements debounce via `useDeferredValue`
+   - Passes parameters to `ItemsService.readItems()`
+2. Adds Search input with icon (Lucide `Search`)
+3. Adds `Select` component for sorting
+4. Adds "Found N items" line
+5. Regenerates the client: `npm run generate-client`
+6. Marks frontend subtasks as `[x]`
 
-> ⚠️ **Критичне правило Amelia:** вона ніколи не ставить `[x]` якщо тести не проходять. Не бреше про тести.
+> ⚠️ **Amelia's critical rule:** she never marks `[x]` if tests are not passing. She does not lie about tests.
 
 ---
 
-### Крок 3.3 — Code Review
+### Step 3.3 — Code Review
 
-Після того як Amelia завершила імплементацію:
+After Amelia finishes the implementation:
 
 ```
 CR
 ```
 
-Або:
+Or:
 ```
 /bmad-code-review _bmad-output/implementation-artifacts/BMAD-2-search-filter.md
 ```
 
-**Що відбувається:**
-BMAD перевіряє код на:
-- Відповідність acceptance criteria зі story
+**What happens:**
+BMAD checks the code against:
+- Acceptance criteria from the story
 - Type safety (mypy strict)
-- Тести (чи існують, чи проходять)
-- Патерни проєкту (з project-context.md)
+- Tests (whether they exist and pass)
+- Project patterns (from project-context.md)
 - Edge cases
 
-Якщо є проблеми → повертається до `DS` (Dev Story) для фіксу.
-Якщо все ок → story отримує статус **Done**.
+If issues are found → returns to `DS` (Dev Story) for fixes.
+If everything is OK → story gets the status **Done**.
 
 ---
 
-### Крок 3.4 — Оновити Sprint Status
+### Step 3.4 — Update Sprint Status
 
 ```
 /bmad-sprint-status
 ```
 
-BMAD підсумовує стан спринту: скільки stories Done, In Progress, Not Started.
+BMAD summarizes the sprint state: how many stories are Done, In Progress, Not Started.
 
 ---
 
-## Повний флоу одним поглядом
+## Full Flow at a Glance
 
 ```
-[Claude Code відкрито у папці проєкту]
+[Claude Code open in the project folder]
          │
          ▼
 /bmad-generate-project-context
-→ Сканує кодобазу
-→ Зберігає правила в _bmad-output/project-context.md
+→ Scans codebase
+→ Saves rules to _bmad-output/project-context.md
          │
          ▼
 /bmad-sprint-planning
-→ Приймає backlog
-→ Створює sprint-plan.md
+→ Accepts backlog
+→ Creates sprint-plan.md
          │
          ▼
 /bmad-create-story BMAD-2
-→ Підготовує story файл з повним контекстом
+→ Prepares story file with full context
 → _bmad-output/implementation-artifacts/BMAD-2.md
          │
          ▼
-/bmad-agent-dev  →  DS  (або /bmad-dev-story)
-→ Amelia читає story
-→ Пише бек (items.py) + тести
-→ Пише фронт (items.tsx) + regenerates client
-→ Все тести проходять
+/bmad-agent-dev  →  DS  (or /bmad-dev-story)
+→ Amelia reads the story
+→ Writes backend (items.py) + tests
+→ Writes frontend (items.tsx) + regenerates client
+→ All tests pass
          │
          ▼
-CR  (або /bmad-code-review)
-→ Review на відповідність критеріям
-→ Якщо є зауваження → DS знову
-→ Якщо ок → Story: Done ✅
+CR  (or /bmad-code-review)
+→ Review against acceptance criteria
+→ If issues found → DS again
+→ If OK → Story: Done ✅
          │
          ▼
 /bmad-sprint-status
 → BMAD-2: Done ✅
-→ Наступна story: BMAD-6
+→ Next story: BMAD-6
 ```
 
 ---
 
-## Корисні команди в процесі
+## Useful Commands During the Process
 
-| Команда | Коли використовувати |
-|---|---|
-| `bmad-help` | Заплутався — питаєш що робити далі |
-| `/bmad-correct-course` | Вимоги змінились під час спринту |
-| `/bmad-party-mode` | Хочеш обговорити задачу з кількома агентами (PM + Architect + Dev) |
-| `/bmad-review-adversarial-general` | Хочеш критичний review документа або коду |
-| `/bmad-sprint-status` | Перевірити поточний стан спринту |
+| Command | When to use |
+|---------|-------------|
+| `bmad-help` | Confused — ask what to do next |
+| `/bmad-correct-course` | Requirements changed during the sprint |
+| `/bmad-party-mode` | Want to discuss a task with multiple agents (PM + Architect + Dev) |
+| `/bmad-review-adversarial-general` | Want a critical review of a document or code |
+| `/bmad-sprint-status` | Check current sprint state |
 
 ---
 
-## Що зберігається після роботи
+## What Gets Saved After the Session
 
 ```
 _bmad-output/
-├── project-context.md              ← правила проєкту для агентів
+├── project-context.md                  ← project rules for agents
 ├── planning-artifacts/
-│   └── sprint-plan.md              ← план спринту
+│   └── sprint-plan.md                  ← sprint plan
 └── implementation-artifacts/
-    ├── BMAD-2-search-filter.md     ← story файл з Dev Agent Record
-    └── sprint-status.md            ← статус всіх stories
+    ├── BMAD-2-search-filter.md         ← story file with Dev Agent Record
+    └── sprint-status.md                ← status of all stories
 ```
 
-Story файл після завершення містить **Dev Agent Record** — що саме було зроблено, які файли змінено, які рішення прийнято. Це аудит-трейл роботи агента.
+The story file after completion contains a **Dev Agent Record** — exactly what was done, which files were changed, and what decisions were made. This is the agent's audit trail.
 
 ---
 
-## Для студентів — Як починати
+## For Students — How to Get Started
 
-1. `docker compose up -d` — запустити проєкт
-2. `npx bmad-method install` — встановити BMAD (пробіл для вибору!)
-3. `claude .` — відкрити в Claude Code
-4. `/bmad-generate-project-context` — ініціалізувати
-5. Обрати задачу з `TASKS_JIRA.md`
+1. `docker compose up -d` — start the project
+2. `npx bmad-method install` — install BMAD (Space to select!)
+3. `claude .` — open in Claude Code
+4. `/bmad-generate-project-context` — initialize
+5. Pick a task from `TASKS_JIRA.md`
 6. `/bmad-sprint-planning` → `/bmad-create-story` → `/bmad-agent-dev` → `DS` → `CR`
-7. `git commit` — зафіксувати результат
+7. `git commit` — save the result
 
 ---
 

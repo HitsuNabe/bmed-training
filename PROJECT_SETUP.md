@@ -1,4 +1,4 @@
-# SETUP_AGENT.md — fastapi/full-stack-fastapi-template
+# PROJECT_SETUP.md — fastapi/full-stack-fastapi-template
 
 ## Instructions for Agent
 
