@@ -215,60 +215,119 @@ SM (Bob) generates a detailed story file with context, acceptance criteria, subt
 
 ---
 
-### Scenario 3 — Correct Course
+### Scenario 3 — Correct Course (Sprint Change Management)
 
-**When to use:** Requirements changed after development started. PRD, architecture, and some stories already exist.
+**When to use:** Something changed **mid-sprint** — requirements shifted, a critical bug was found during implementation, the client added new scope — and existing planning artifacts (PRD, Architecture, Epics) need to be updated consistently.
 
-**Time:** 15–30 minutes
+**Time:** 15–40 minutes
 
-> ⚠️ Only works in **Standard / Brownfield / Enterprise** flow — requires existing artifacts (PRD, Architecture, Epics, Sprint Plan).
-> For Quick Flow — just re-run `/bmad-quick-dev` with updated requirements.
+**Command:**
+```
+/bmad-correct-course
+```
 
-**Step 1 — Consult the team first (optional but recommended)**
+> ⚠️ **Important limitations:**
+> - Only works in **Standard / Brownfield / Enterprise** flow — it loads PRD, Epics, Architecture, UX, Spec files. **Halts if PRD or Epics are not found.**
+> - This is a **mid-sprint** tool — not for post-implementation changes.
+> - For Quick Flow — just re-run `/bmad-quick-dev` with updated requirements.
 
-Before changing artifacts, use Party Mode to assess impact:
+**What it does:**
+BMAD acts as a Scrum Master who loads ALL project artifacts, analyzes how the change propagates through each one, and generates a **Sprint Change Proposal** document — a structured plan showing what must change, where, and why.
+
+**How it works — step by step:**
+
+**Step 1 — Describe the change trigger**
+```
+/bmad-correct-course
+→ BMAD asks: "What specific issue or change has been identified?"
+→ You describe: "Client now requires PDF export in addition to CSV in BMAD-6"
+→ BMAD asks for mode: Incremental (review each edit one by one) or Batch (all at once)
+```
+
+**Step 2 — BMAD loads and analyzes all artifacts**
+```
+BMAD automatically loads:
+├── PRD (prd.md)                    ← required, halts without it
+├── Epics (*epic*.md)               ← required, halts without it
+├── Architecture (*architecture*.md) ← loaded if exists
+├── UX Design (*ux*.md)             ← loaded if exists
+├── Spec files (*spec-*.md)         ← loaded if exists
+└── project-context.md              ← loaded if exists
+```
+
+**Step 3 — Generates specific change proposals** (old → new for each artifact)
+```
+Story: BMAD-6 CSV Export
+Section: Acceptance Criteria
+
+OLD:
+- CSV file downloads with correct data
+
+NEW:
+- CSV file downloads with correct data
+- PDF file downloads with correct data and formatting
+
+Rationale: Client requirement — PDF export added to scope
+```
+
+In **Incremental mode** — you review each proposal individually: Approve [a] / Edit [e] / Skip [s].
+In **Batch mode** — all proposals are presented together at the end.
+
+**Step 4 — Sprint Change Proposal document**
+
+BMAD compiles a full document saved to `{planning_artifacts}/sprint-change-proposal-{date}.md`:
+
+```
+Section 1: Issue Summary — what triggered the change
+Section 2: Impact Analysis — which epics, stories, artifacts are affected
+Section 3: Recommended Approach:
+  - Direct Adjustment: modify stories within existing plan
+  - Potential Rollback: revert completed work
+  - MVP Review: reduce scope or modify goals
+Section 4: Detailed Change Proposals — all old → new edits
+Section 5: Implementation Handoff — who takes it from here
+```
+
+**Step 5 — Classification and handoff**
+
+| Classification | Meaning | What happens |
+|----------------|---------|-------------|
+| **Minor** | Small scope, no replanning needed | Dev team implements directly |
+| **Moderate** | Backlog needs reorganization | Routes to PO / Scrum Master |
+| **Major** | Fundamental replan required | Routes to PM / Architect |
+
+**Step 6 (optional) — Consult the team before running Correct Course**
+
+If you're unsure about the impact, use Party Mode first:
 ```
 /bmad-party-mode
 "John, Winston — client wants PDF export added to BMAD-6 (CSV export story).
  What breaks? What needs to change?"
-
 → John: "PRD UC-03 needs updating, scope expands"
 → Winston: "Architecture needs S3 or local file storage"
 → *exit
+          ↓
+/bmad-correct-course    ← now you run it with full context
 ```
 
-**Step 2 — Run Correct Course**
+**After artifacts are updated — resume implementation:**
 ```
-/bmad-correct-course
-→ Describe what changed:
-  "Client now requires PDF export in addition to CSV in BMAD-6"
-→ BMAD loads ALL artifacts: PRD, Architecture, UX, Stories, Sprint Plan
-→ Analyzes impact across all of them
+/bmad-create-story BMAD-6  (re-generate with updated scope)
+          ↓
+/bmad-agent-dev → DS → CR ✅
 ```
 
-**Step 3 — Review the change proposal**
+**Key principle:** BMAD does **not rollback**. It propagates changes **forward** — updates all artifacts to match new requirements (Forward Propagation).
 
-BMAD generates a Sprint Change Proposal:
+**What if the sprint is already done?**
+`/bmad-correct-course` is not designed for post-implementation. If implementation is finished and you need changes:
 
-```
-│ Artifact        │ OLD              │ NEW              │
-│ PRD UC-03       │ CSV export only  │ + PDF export     │
-│ Arch DB         │ no file storage  │ S3 or local dir  │
-│ Story BMAD-6    │ CSV only         │ CSV + PDF        │
-
-Classification: Moderate
-→ Minor changes: applied immediately
-→ Moderate/Major: requires your confirmation
-```
-
-**Step 4 — Resume implementation**
-```
-→ Artifacts updated
-→ /bmad-create-story BMAD-6  (re-generate with new scope)
-→ /bmad-agent-dev → DS → CR ✅
-```
-
-**Note:** BMAD does not rollback. It propagates changes **forward** — updates all artifacts to match new requirements (Forward Propagation).
+| Situation | Tool |
+|-----------|------|
+| Small fix to existing code | `/bmad-quick-dev` with the new requirement |
+| Need a new story for the next sprint | `/bmad-create-story` + `/bmad-agent-dev` |
+| Re-evaluate priorities for next sprint | `/bmad-sprint-planning` |
+| Discuss impact before deciding | `/bmad-party-mode` |
 
 ---
 
