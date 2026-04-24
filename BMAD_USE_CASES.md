@@ -1,6 +1,6 @@
 # BMAD USE CASES — Scenarios from Simple to Advanced
 
-> Analysis of real-world BMAD METHOD (v6.2.3) usage scenarios
+> Analysis of real-world BMAD METHOD (v6.3.0) usage scenarios
 
 ---
 
@@ -10,7 +10,7 @@ BMAD has three official "tracks" depending on the size and complexity of the tas
 
 | Track | When | Commands | Time |
 |-------|------|----------|------|
-| **Quick Flow** | Small tasks, bug fixes, isolated features | `/bmad-quick-dev` or `/bmad-agent-quick-flow-solo-dev` | < 5 min |
+| **Quick Flow** | Small tasks, bug fixes, isolated features | `/bmad-quick-dev` or `/bmad-agent-dev` → QD | < 5 min |
 | **Standard** | MVPs, new projects, medium features | `brief` → `prd` → `arch` → `ux` → `stories` → `DS` | hours |
 | **Enterprise** | Corporate projects, compliance | + Security Auditor, Accessibility Auditor, documentation | days–weeks |
 
@@ -25,11 +25,10 @@ BMAD has three official "tracks" depending on the size and complexity of the tas
 ### Situation
 You need to fix a bug or add a simple feature without going through the full planning cycle.
 
-### Flow — Option A (via Barry agent)
+### Flow — Option A (via Amelia agent)
 ```
-/bmad-agent-quick-flow-solo-dev
-→ Activates "Barry" — direct, no fluff, just results
-→ Menu: QD | CR
+/bmad-agent-dev
+→ Amelia greets you and shows capabilities menu
 → Select QD → launches bmad-quick-dev
          │
          ▼
@@ -59,7 +58,7 @@ File: frontend/src/routes/_layout/items.tsx
 
 ### Two Internal Paths of /bmad-quick-dev
 
-Barry chooses the path after analyzing the task — you don't specify anything:
+The path is chosen automatically after analyzing the task — you don't specify anything:
 
 **One-shot** — zero blast radius (one file, obvious change):
 ```
@@ -78,7 +77,7 @@ Barry chooses the path after analyzing the task — you don't specify anything:
 → Implements per spec → Review → Commit
 ```
 
-The spec file is named `spec-{slug}.md` (not `spec-wip.md`) and is saved in `_bmad-output/`. `spec-wip.md` is only an intermediate file during planning.
+The spec file is named `spec-{slug}.md` and is saved in `_bmad-output/` with a status field. In v6.3.0 the old `spec-wip.md` singleton was removed — each session writes to its own spec file, enabling parallel quick-dev sessions.
 
 ---
 
@@ -159,7 +158,7 @@ You only have an idea or a brief. You need to go through the full cycle from con
          │
          ▼
 /bmad-create-epics-and-stories
-→ SM (Bob) breaks epics into stories
+→ Breaks epics into stories
 → Each story — a separate file
          │
          ▼
@@ -229,7 +228,7 @@ Party Mode with a concrete document in hand gives a much more focused discussion
          │
          ▼
 Winston: "The architecture didn't account for X..."
-Quinn: "The AC doesn't cover the edge case when..."
+Amelia: "The AC doesn't cover the edge case when..."
 *exit → edit story → DS
 ```
 
@@ -475,7 +474,7 @@ npx bmad-method install --modules tea --tools claude-code
          │
          ▼
 /bmad-testarch-test-design BMAD-2-search-filter.md
-→ QA (Quinn) analyzes the story
+→ Test Architect (Murat) analyzes the story
 → Generates test plan:
    - Unit tests for ILIKE query
    - Integration tests for sort_by params
@@ -488,7 +487,7 @@ DS (Amelia knows the test plan)
          │
          ▼
 /bmad-testarch-test-review
-→ Quinn checks: are all test cases covered
+→ Murat checks: are all test cases covered
 ```
 
 ---
@@ -546,4 +545,4 @@ If the PRD changed after development started → `/bmad-correct-course`.
 
 ---
 
-*BMAD v6.2.3 · Stack: FastAPI · React · TypeScript · PostgreSQL · Docker*
+*BMAD v6.3.0 · Stack: FastAPI · React · TypeScript · PostgreSQL · Docker*

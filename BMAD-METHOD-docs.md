@@ -23,7 +23,8 @@
 
 ### Prerequisites
 
-- **Node.js v20+** — the only required dependency
+- **Node.js v20+**
+- **Python 3.10+** and **uv** (added in v6.3.0)
 - An active **Claude** subscription (Claude.ai or Claude Code)
 
 Check your Node.js version:
@@ -223,59 +224,36 @@ BMAD is organized around **specialized agents** — each is a distinct AI person
 
 #### 💻 Developer (Amelia)
 - **Agent name:** `bmad-agent-dev`
-- **Role:** Implementation specialist and code reviewer
-- **What it does:** Implements stories, writes code according to architectural decisions, conducts code reviews. Works strictly within the defined story context.
-- **When to use:** For writing code, story by story
-- **Artifacts:** Code, PR, Implementation Notes
+- **Role:** Unified implementation specialist — developer, sprint manager, QA coordinator, and code reviewer
+- **What it does:** In v6.3.0, Amelia absorbed the roles of Barry (Quick Flow), Quinn (QA), and Bob (Scrum Master). She now handles the full implementation lifecycle: sprint planning, story creation, quick-dev, story implementation, code review, and QA coordination.
+- **When to use:** For all implementation work — from quick bug fixes to full sprint execution
+- **Artifacts:** Code, Tests, PR, Story Files, Sprint Status, Implementation Notes
 
-#### 🧪 QA (Quinn)
-- **Agent name:** `bmad-agent-qa`
-- **Role:** Pragmatic test automation engineer
-- **What it does:** Generates E2E tests, covers realistic user scenarios. "Ship it and iterate" mindset — focused on fast coverage.
-- **When to use:** For writing tests, QA strategy, E2E coverage
-- **Artifacts:** E2E Test Suite, QA Plan
-
-#### 📌 Scrum Master (Bob)
-- **Agent name:** `bmad-agent-sm`
-- **Role:** Certified Scrum Master with a technical background
-- **What it does:** Organizes team work: sprint planning, preparing story files with context and acceptance criteria, tracking progress. Clear, checklist-oriented, zero tolerance for ambiguity.
-- **When to use:** For sprint planning, story preparation, retrospectives
-- **Artifacts:** Story Files, Sprint Plan, Sprint Status, Retrospective Notes
-
-#### ⚡ Quick Flow Solo Dev (Barry)
-- **Agent name:** `bmad-agent-quick-flow-solo-dev`
-- **Role:** Accelerated mode for a solo developer
-- **What it does:** A simplified variant without the full agile process. Allows quickly moving from idea to code without going through all phases.
-- **When to use:** Small projects, MVPs, solo dev without the need for full documentation
+> ⚠️ **v6.3.0 change:** The agents `bmad-agent-quick-flow-solo-dev` (Barry), `bmad-agent-qa` (Quinn), and `bmad-agent-sm` (Bob) have been **removed**. All their capabilities are now consolidated into Amelia. Workflows that previously required separate agents (`bmad-quick-dev`, `bmad-sprint-planning`, `bmad-create-story`) are still available — they are invoked directly or through Amelia's menu.
 
 ---
 
-### Phase 4 — Implementation Skills (detailed)
+### Phase 4 — Implementation Commands (detailed)
 
-There are 4 closely related commands in Phase 4 that are easy to confuse:
+Amelia's menu provides access to all implementation workflows. You can also call any workflow directly without going through the agent:
 
-| Command | Type | Input | Use when |
-|---------|------|-------|----------|
-| `bmad-agent-dev` | **Agent (Amelia)** | Story file already exists | Standard/Enterprise flow — opens a session with Amelia, she presents a menu |
-| `bmad-dev-story` | **Workflow** | Story file path | Direct story execution without the agent persona — same as Amelia's `DS` menu item |
-| `bmad-agent-quick-flow-solo-dev` | **Agent (Barry)** | Raw intent ("add email filter") | Quick Flow — opens a session with Barry, he handles spec + implementation himself |
-| `bmad-quick-dev` | **Workflow** | Raw intent | Direct quick dev without the agent persona — same as Barry's `QD` menu item |
-
-**Relationship between agents and workflows:**
-
-```
-bmad-agent-dev (Amelia)
-    └── menu item DS → bmad-dev-story  ← requires a prepared story file
-
-bmad-agent-quick-flow-solo-dev (Barry)
-    └── menu item QD → bmad-quick-dev  ← works from raw intent alone
-```
+| Command | Type | What it does |
+|---------|------|--------------|
+| `bmad-agent-dev` | **Agent (Amelia)** | Opens an interactive session — Amelia greets you, loads project context, presents a capabilities menu |
+| `bmad-dev-story` | Workflow | Implement a specific story file — read tasks in order, write code + tests |
+| `bmad-quick-dev` | Workflow | Quick flow — clarify intent → plan (if needed) → implement → review → present |
+| `bmad-create-story` | Workflow | Generate a detailed story file with context and acceptance criteria |
+| `bmad-sprint-planning` | Workflow | Create `sprint-status.yaml` from epics |
+| `bmad-code-review` | Workflow | Parallel code review: blind review + edge case + acceptance audit |
+| `bmad-correct-course` | Workflow | Handle mid-sprint requirement changes — impact analysis + change proposal |
+| `bmad-sprint-status` | Workflow | Check current sprint progress and surface risks |
+| `bmad-retrospective` | Workflow | Post-epic review to extract lessons learned |
+| `bmad-checkpoint-preview` | Workflow | *(New in 6.3.0)* Guided concern-ordered review of commits/branches/PRs |
 
 **Practical rule:**
-- Already have a story file → use `bmad-agent-dev` or `bmad-dev-story` directly
-- No story file, want a quick result → use `bmad-agent-quick-flow-solo-dev` or `bmad-quick-dev` directly
-- The agent variants (Amelia/Barry) greet you, load project context, and offer a menu — useful for interactive sessions
-- The workflow variants (`bmad-dev-story` / `bmad-quick-dev`) go straight to execution — useful when you know exactly what you want
+- Interactive session with a menu → use `bmad-agent-dev` (Amelia)
+- Know exactly what you want → call the workflow directly (e.g. `/bmad-quick-dev`, `/bmad-dev-story`)
+- Each workflow works as a standalone skill — no agent persona required
 
 ---
 
@@ -297,8 +275,8 @@ Idea
  │         Architecture Doc, ADR, API Contracts
  │
  ▼
-[Phase 4] IMPLEMENTATION ────── Dev (Amelia), QA (Quinn), SM (Bob)
-           Stories → Code → Tests → Sprint Review
+[Phase 4] IMPLEMENTATION ────── Dev (Amelia)
+           Sprint Planning → Stories → Code → Tests → Review
 ```
 
 Each phase produces **artifacts** that become context for the next:
@@ -315,7 +293,7 @@ Each phase produces **artifacts** that become context for the next:
 ### Usage Examples
 
 - **Architect + PM** discuss technical trade-offs and requirements simultaneously
-- **Developer + QA** align on a testing strategy before implementation
+- **Developer + Architect** align on implementation approach before coding
 - **PM + UX Designer** validate requirements and design decisions together
 
 ### How to Activate
@@ -340,12 +318,14 @@ Architect — propose a solution.
 | `bmad-help I just finished the architecture, what's next?` | Ask for specific advice |
 | `/bmad-agent-pm` | Activate PM agent (John) |
 | `/bmad-agent-architect` | Activate Architect agent (Winston) |
-| `/bmad-agent-dev` | Activate Developer agent (Amelia) — interactive session, story-by-story |
-| `/bmad-dev-story` | Execute a specific story file directly (no agent persona) |
-| `/bmad-agent-quick-flow-solo-dev` | Activate Quick Flow agent (Barry) — interactive session, raw intent → code |
-| `/bmad-quick-dev` | Quick implementation directly (no agent persona) |
-| `/bmad-agent-sm` | Activate Scrum Master agent (Bob) |
-| `/bmad-agent-qa` | Activate QA agent (Quinn) |
+| `/bmad-agent-dev` | Activate Developer agent (Amelia) — unified implementation: stories, quick-dev, QA, sprint management |
+| `/bmad-dev-story` | Implement a specific story file directly |
+| `/bmad-quick-dev` | Quick implementation — from raw intent to code |
+| `/bmad-create-story` | Generate a detailed story file |
+| `/bmad-sprint-planning` | Create sprint status tracker from epics |
+| `/bmad-code-review` | Parallel code review (blind + edge case + acceptance) |
+| `/bmad-correct-course` | Handle mid-sprint requirement changes |
+| `/bmad-checkpoint-preview` | *(New)* Guided review of commits/branches/PRs |
 | `/bmad-agent-analyst` | Activate Analyst agent |
 | `/bmad-party-mode` | Activate multi-agent discussion mode |
 
@@ -361,4 +341,4 @@ BMAD automatically calibrates the **depth of planning** based on project complex
 
 ---
 
-*Documentation based on BMAD METHOD v6.2.3. Latest information: [docs.bmad-method.org](https://docs.bmad-method.org)*
+*Documentation based on BMAD METHOD v6.3.0. Latest information: [docs.bmad-method.org](https://docs.bmad-method.org)*

@@ -58,9 +58,10 @@ Once deployed, verify everything is running:
 ```
 Idea → Analysis → Planning → Architecture → Implementation → Done
         Analyst     PM(John)   Architect       Dev(Amelia)
-                    UX(Sally)  (Winston)        QA(Quinn)
-                                                SM(Bob)
+                    UX(Sally)  (Winston)
 ```
+
+> In v6.3.0, Amelia (Developer agent) absorbed the roles of Barry (Quick Flow), Quinn (QA), and Bob (Scrum Master). She now handles the full implementation lifecycle: sprint planning, story creation, quick-dev, story implementation, code review, and QA.
 
 Each phase produces **artifacts** (documents, specs, story files) that become context for the next phase. Agents don't overlap — they pass context down the chain.
 
@@ -117,43 +118,43 @@ Full installation guide: **[BMAD-METHOD-docs.md](./BMAD-METHOD-docs.md)**
 
 **Time:** 5–15 minutes
 
-Barry (Quick Flow Solo Dev) handles everything himself: clarifies the task, makes a spec if needed, implements, runs a review, commits.
-
-**Option A — via Barry agent (interactive session):**
+**Option A — via Amelia (interactive session):**
 ```
-/bmad-agent-quick-flow-solo-dev
-→ Barry greets you and shows menu: QD | CR
-→ Select QD
+/bmad-agent-dev
+→ Amelia greets you and shows capabilities menu
+→ Select QD (Quick Dev)
 → Describe your task
-→ Barry routes: one-shot or plan → implement → review → done ✅
+→ Amelia routes: one-shot or plan → implement → review → done ✅
 ```
 
-**Option B — direct (no persona, straight to execution):**
+**Option B — direct (straight to execution):**
 ```
 /bmad-quick-dev
 Fix bug where items table doesn't refresh after deleting an item.
 File: frontend/src/routes/_layout/items.tsx
 ```
 
-**Two internal paths — Barry decides automatically:**
+**Two internal paths — chosen automatically based on blast radius:**
 
 | Path | When | Spec file created? |
 |------|------|--------------------|
 | **One-shot** | Single file, obvious change | No |
 | **Plan → code → review** | Multi-file or architectural change | Yes — `spec-{slug}.md` in `_bmad-output/` |
 
+> In v6.3.0 each session writes to its own `spec-{slug}.md` with a status field, enabling **parallel sessions** (the old `spec-wip.md` singleton has been removed).
+
 **Example (one-shot):**
 ```
 /bmad-quick-dev
 Change the "Add Item" button color to blue
-→ Barry implements directly, no spec, adversarial review, commit ✅
+→ Implements directly, no spec, adversarial review, commit ✅
 ```
 
 **Example (plan-code-review):**
 ```
 /bmad-quick-dev
 Add pagination to items list — backend (FastAPI) + frontend (React)
-→ Barry clarifies details
+→ Clarifies details
 → Creates spec-pagination-items.md
 → Implements per spec → review → commit ✅
 ```
@@ -183,7 +184,7 @@ Pass the list of backlog tasks. BMAD selects what goes into the sprint and creat
 ```
 /bmad-create-story BMAD-2
 ```
-SM (Bob) generates a detailed story file with context, acceptance criteria, subtasks, and technical notes. Saved to `implementation-artifacts/`.
+Generates a detailed story file with context, acceptance criteria, subtasks, and technical notes. Saved to `implementation-artifacts/`.
 
 **Step 4 — Implement with Amelia**
 ```
@@ -368,7 +369,7 @@ Exit with: `*exit` or `goodbye` or `end party`
  Team, what could go wrong with this approach?"
 
 → Winston: "Architecture didn't account for concurrent writes..."
-→ Quinn: "AC doesn't cover the edge case when user has no items..."
+→ Amelia: "AC doesn't cover the edge case when user has no items..."
 *exit → edit story → DS
 ```
 
@@ -457,7 +458,7 @@ See: **[BMAD_USE_CASES.md — Scenario 7](./BMAD_USE_CASES.md)**
 → UX Designer (Sally) designs user flows and component structure
           ↓
 /bmad-create-epics-and-stories
-→ SM (Bob) breaks epics into individual story files
+→ Breaks epics into individual story files
           ↓
 /bmad-agent-dev → DS  (repeat for each story)
 → Amelia implements story by story
@@ -495,4 +496,4 @@ See: **[BMAD_USE_CASES.md — Scenario 3](./BMAD_USE_CASES.md)**
 
 ---
 
-*BMAD v6.2.3 · FastAPI · React · TypeScript · PostgreSQL · Docker*
+*BMAD v6.3.0 · FastAPI · React · TypeScript · PostgreSQL · Docker*

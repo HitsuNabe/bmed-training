@@ -299,4 +299,4 @@ The story file after completion contains a **Dev Agent Record** — exactly what
 ---
 
 *Stack: FastAPI · React · TypeScript · PostgreSQL · Docker*
-*BMAD version: 6.2.3*
+*BMAD version: 6.3.0*
