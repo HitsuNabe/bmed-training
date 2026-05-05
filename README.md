@@ -15,6 +15,7 @@ A hands-on course for learning **BMAD METHOD** (Breakthrough Method for Agile AI
 | [TASKS_JIRA.md](./TASKS_JIRA.md) | Student tasks in Jira story format (BMAD-1 — BMAD-7) |
 | [BMAD_WORKFLOW_GUIDE.md](./BMAD_WORKFLOW_GUIDE.md) | Step-by-step guide: from BMAD installation to implementing a task |
 | [BMAD_USE_CASES.md](./BMAD_USE_CASES.md) | All BMAD scenarios from simple to advanced |
+| [PO_WORKFLOW.md](./PO_WORKFLOW.md) | Product Owner workflow on existing project: client request → discovery → triage → stories → handoff |
 
 ---
 
